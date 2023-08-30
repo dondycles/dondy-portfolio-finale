@@ -1,9 +1,7 @@
-import { useThemeStore } from "@/store";
 import { usePathname, useRouter } from "next/navigation";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
+import ThemeButton from "./ThemeButton";
 
 export default function () {
-  const theme = useThemeStore();
   const path = usePathname();
   const route = useRouter();
   return (
@@ -17,7 +15,7 @@ export default function () {
         <li
           onClick={() => route.push("/")}
           className={` join-item btn cursor-pointer text-xs flex-1 ${
-            path === "/" && " btn-active pointer-events-none"
+            path === "/" && " btn-accent pointer-events-none"
           }`}
         >
           Home
@@ -25,7 +23,7 @@ export default function () {
         <li
           onClick={() => route.push("/projects")}
           className={`join-item btn   cursor-pointer text-xs flex-1 ${
-            path === "/projects" && "btn-active  pointer-events-none"
+            path === "/projects" && "btn-accent  pointer-events-none"
           }`}
         >
           Projects
@@ -33,27 +31,13 @@ export default function () {
         <li
           onClick={() => route.push("/contacts")}
           className={`join-item btn  cursor-pointer text-xs flex-1 ${
-            path === "/contacts" && "btn-active  pointer-events-none"
+            path === "/contacts" && "btn-accent  pointer-events-none"
           }`}
         >
           Contacts
         </li>
       </ul>
-      <label className="swap swap-rotate text-2xl join-item group fixed bottom-4 right-4 sm:right-auto sm:bottom-auto sm:relative ">
-        <input
-          onClick={() => {
-            if (theme.mode === "dark") return theme.toggleMode("light");
-            theme.toggleMode("dark");
-          }}
-          type="checkbox"
-        />
-        <span className=" swap-off">
-          <MdDarkMode />
-        </span>
-        <span className=" swap-on">
-          <MdLightMode />
-        </span>
-      </label>
+      <ThemeButton />
     </nav>
   );
 }
