@@ -6,7 +6,7 @@ export default function ThemeButton() {
   const theme = useThemeStore();
 
   return (
-    <label className="swap swap-rotate text-2xl join-item group fixed bottom-4 right-4 sm:right-auto sm:bottom-auto sm:relative text-accent">
+    <label className="swap swap-rotate text-[32px] sm:text-2xl join-item group fixed bottom-4 right-4 sm:right-auto sm:bottom-auto sm:relative text-accent">
       <input
         defaultChecked={theme.mode === "light" ? false : true}
         onClick={() => {
@@ -16,7 +16,7 @@ export default function ThemeButton() {
         type="checkbox"
       />
       <>
-        <span className={` swap-off`}>
+        <span className={` swap-off `}>
           <MdDarkMode />
         </span>
         <span className={` swap-on`}>
