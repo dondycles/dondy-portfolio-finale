@@ -1,9 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Oxygen_Mono } from "next/font/google";
 import Hydrator from "./components/Hydrator";
 
-const outfit = Outfit({ subsets: ["latin"] });
+const outfit = Oxygen_Mono({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "John Rod Dondoyano | Portfolio",

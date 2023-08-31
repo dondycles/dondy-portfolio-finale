@@ -21,13 +21,14 @@ export default function Home() {
           <p className="text-sm">BS Computer Engineering</p>
         </section>
       </section>
-      <section className="flex-1 self-stretch rounded-box bg-base-200 p-4 text-base-content text-justify  overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb scrollbar-thumb-accent/25">
+      <section className="flex-1 self-stretch rounded-box bg-base-200  text-base-content text-justify  overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb scrollbar-thumb-accent/25 mockup-code p-4">
         <p className=" indent-8">
           I am a self-taught web developer who pulls up an all-nighter and
           currently working with my degree of BS in Computer Engineering. I
           achieved millions of views with my piano covers on YouTube. I split my
           time between music and exploring the world of web development.
         </p>
+
         <br />
         <p className=" indent-8">
           I really enjoy developing and designing websites! Learning web
