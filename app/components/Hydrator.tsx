@@ -23,10 +23,10 @@ export default function Hydrator({ children }: { children: React.ReactNode }) {
             key={String(hydrate)}
             className=" p-4 sm:px-16 sm:py-8 min-h-[100dvh] text-base-content"
           >
-            <section className=" sm:mt-20 w-full h-screen max-h-[calc(100dvh-82px)] sm:max-h-[calc(100dvh-144px)] bg-base-300 rounded-box p-4 sm:p-8 flex items-center flex-col gap-4 sm:gap-8 justify-center">
-              <Nav />
+            <Nav />
+            <div className=" sm:mt-20 w-full h-screen max-h-[calc(100dvh-82px)] sm:max-h-[calc(100dvh-144px)] bg-base-300 rounded-box p-4 sm:p-8">
               {children}
-            </section>
+            </div>
           </motion.main>
         ) : (
           <motion.main
