@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-*::-webkit-scrollbar-button {
-  visibility: hidden;
+*::-webkit-scrollbar-track {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
 }
