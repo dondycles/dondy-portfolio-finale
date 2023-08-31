@@ -36,7 +36,10 @@ export default function Hydrator({ children }: { children: React.ReactNode }) {
             key={String(hydrate)}
             className=" p-4 sm:px-16 sm:py-8 min-h-[100dvh] text-base-content flex items-center justify-center"
           >
-            <p>Loading...</p>
+            <p className="flex items-center gap-2 text-accent">
+              Loading
+              <span className="loading loading-lg loading-dots" />
+            </p>
           </motion.main>
         )}
       </body>
