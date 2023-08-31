@@ -38,7 +38,7 @@ export default function Home() {
         <br />
 
         <section>
-          <table className="table text-xs w-full max-w-[300px] mx-auto">
+          <table className="table table-sm w-full sm:w-fit mx-auto">
             <thead>
               <tr>
                 <th>Skill</th>
@@ -51,7 +51,7 @@ export default function Home() {
                 <td>
                   {" "}
                   <progress
-                    className="progress progress-accent w-full max-w-[150px]"
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
                     value="75"
                     max="100"
                   ></progress>
@@ -62,7 +62,7 @@ export default function Home() {
                 <td>
                   {" "}
                   <progress
-                    className="progress progress-accent w-full max-w-[150px]"
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
                     value="75"
                     max="100"
                   ></progress>
@@ -73,7 +73,7 @@ export default function Home() {
                 <td>
                   {" "}
                   <progress
-                    className="progress progress-accent w-full max-w-[150px]"
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
                     value="60"
                     max="100"
                   ></progress>
@@ -84,7 +84,7 @@ export default function Home() {
                 <td>
                   {" "}
                   <progress
-                    className="progress progress-accent w-full max-w-[150px]"
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
                     value="60"
                     max="100"
                   ></progress>
@@ -95,7 +95,7 @@ export default function Home() {
                 <td>
                   {" "}
                   <progress
-                    className="progress progress-accent w-full max-w-[150px]"
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
                     value="60"
                     max="100"
                   ></progress>
@@ -106,7 +106,7 @@ export default function Home() {
                 <td>
                   {" "}
                   <progress
-                    className="progress progress-accent w-full max-w-[150px]"
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
                     value="50"
                     max="100"
                   ></progress>
