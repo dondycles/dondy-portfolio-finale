@@ -1,9 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Oxygen_Mono } from "next/font/google";
+import { B612_Mono } from "next/font/google";
 import Hydrator from "./components/Hydrator";
 
-const outfit = Oxygen_Mono({ weight: "400", subsets: ["latin"] });
+const myFont = B612_Mono({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "John Rod Dondoyano | Portfolio",
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={outfit.className}>
+    <html lang="en" className={`${myFont.className} text-sm`}>
       <Hydrator children={children} />
     </html>
   );
