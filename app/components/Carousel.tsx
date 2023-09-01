@@ -16,23 +16,26 @@ export default function Carousel({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ type: "spring", bounce: 0.25, duration: 0.3 }}
-      className="fixed z-10 top-0 left-0 h-screen w-screen flex items-center justify-center bg-base-100/25 backdrop-blur-sm"
+      className="fixed z-10 top-0 left-0 right-0 h-screen w-screen flex items-center justify-center bg-base-100/25 backdrop-blur-sm"
     >
-      <div className=" w-full">
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className="flex items-center justify-center gap-4 w-fit  mx-auto px-4 bg-base-300 rounded-box"
-        >
+      <div className="w-full ">
+        <div className="flex items-center justify-center gap-[32px] px-[32px] rounded-box mx-auto">
           <button
-            className="btn btn-circle bg-base-100"
-            onClick={() => {
+            className="btn btn-circle bg-accent"
+            onClick={(e) => {
+              e.stopPropagation();
               if (index === 0) return setIndex(gallery.length - 1);
               setIndex((prev) => prev - 1);
             }}
           >
             <BiSolidLeftArrow />
           </button>
-          <div className="w-screen max-w-[600px] aspect-square relative">
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className="w-screen max-w-[600px] aspect-square relative"
+          >
             <AnimatePresence>
               <motion.img
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -42,13 +45,14 @@ export default function Carousel({
                 key={index}
                 alt="John Rod Dondoyano"
                 src={gallery[index].src}
-                className="absolute top-0 left-0 w-full object-contain aspect-square rounded-box"
+                className="absolute top-0 left-0 w-full object-cover aspect-square rounded-box"
               />
             </AnimatePresence>
           </div>
           <button
-            className="btn btn-circle bg-base-100"
-            onClick={() => {
+            className="btn btn-circle bg-accent"
+            onClick={(e) => {
+              e.stopPropagation();
               if (index === gallery.length - 1) return setIndex(0);
               setIndex((prev) => prev + 1);
             }}

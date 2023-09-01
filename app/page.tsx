@@ -1,10 +1,18 @@
 import Image from "next/image";
 import { useState } from "react";
 import Avatar from "./components/Avatar";
+import {
+  SiSvelte,
+  SiReact,
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiNextdotjs,
+} from "react-icons/si";
 export default function Home() {
   return (
-    <article className=" w-full h-full flex flex-col items-center gap-4 sm:gap-8">
-      <section className="flex items-center gap-4 sm:gap-8">
+    <article className=" w-full h-full flex flex-col items-center gap-[32px]">
+      <section className="flex items-center gap-[32px]">
         <Avatar />
         <section>
           <h1 className=" font-bold ">John Rod Dondoyano</h1>
@@ -12,8 +20,8 @@ export default function Home() {
           <p className="text-xs">BS Computer Engineering</p>
         </section>
       </section>
-      <section className="flex-1 self-stretch rounded-box bg-base-200  text-base-content text-justify  overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb scrollbar-thumb-accent/25 mockup-code p-4">
-        <p className=" flex gap-4">
+      <section className="flex-1 self-stretch rounded-box bg-base-200  text-base-content text-justify  overflow-y-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb scrollbar-thumb-accent/25 mockup-code p-[32px]">
+        <p className=" flex gap-[32px]">
           <span className=" text-accent">$</span>
           <span>
             I am a self-taught web developer who pulls up an all-nighter and
@@ -22,9 +30,8 @@ export default function Home() {
             my time between music and exploring the world of web development.
           </span>
         </p>
-
         <br />
-        <p className=" flex gap-4">
+        <p className=" flex gap-[32px]">
           <span className="text-accent">$</span>
           <span>
             I really enjoy developing and designing websites! Learning web
@@ -35,7 +42,7 @@ export default function Home() {
         </p>
         <br />
 
-        <section className=" flex gap-4">
+        <section className=" flex gap-[32px]">
           <span className="text-accent">$</span>
           <table className="table table-sm w-full sm:w-fit mx-auto">
             <thead>
@@ -46,7 +53,9 @@ export default function Home() {
             </thead>
             <tbody>
               <tr>
-                <td>HTML</td>
+                <td className="flex items-center gap-1">
+                  <SiHtml5 /> HTML
+                </td>
                 <td>
                   {" "}
                   <progress
@@ -57,7 +66,9 @@ export default function Home() {
                 </td>
               </tr>
               <tr>
-                <td>CSS</td>
+                <td className="flex items-center gap-1">
+                  <SiCss3 /> CSS
+                </td>
                 <td>
                   {" "}
                   <progress
@@ -68,7 +79,9 @@ export default function Home() {
                 </td>
               </tr>
               <tr>
-                <td>Vanilla JavaScript</td>
+                <td className="flex items-center gap-1">
+                  <SiJavascript /> JavaScript
+                </td>
                 <td>
                   {" "}
                   <progress
@@ -79,7 +92,9 @@ export default function Home() {
                 </td>
               </tr>
               <tr>
-                <td>React</td>
+                <td className="flex items-center gap-1">
+                  <SiReact /> React
+                </td>
                 <td>
                   {" "}
                   <progress
@@ -90,7 +105,9 @@ export default function Home() {
                 </td>
               </tr>
               <tr>
-                <td>NextJS</td>
+                <td className="flex items-center gap-1">
+                  <SiNextdotjs /> NextJS
+                </td>
                 <td>
                   {" "}
                   <progress
@@ -101,7 +118,9 @@ export default function Home() {
                 </td>
               </tr>
               <tr>
-                <td>SvelteKit</td>
+                <td className="flex items-center gap-1">
+                  <SiSvelte /> SvelteKit
+                </td>
                 <td>
                   {" "}
                   <progress

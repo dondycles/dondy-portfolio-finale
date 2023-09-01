@@ -10,16 +10,16 @@ export default function () {
   const path = usePathname();
   const route = useRouter();
   return (
-    <nav className=" fixed top-auto bottom-4 left-4 right-4 sm:top-8 sm:bottom-auto sm:left-16 sm:right-16 flex items-center justify-center gap-4">
-      <div className="avatar h-8 w-8 sm:h-6 sm:w-6 fixed bottom-4 left-4 sm:left-auto sm:bottom-auto sm:relative ">
+    <nav className=" fixed top-auto bottom-[32px] left-[32px] right-[32px] sm:top-[32px] sm:bottom-auto sm:left-[32px] sm:right-[32px] flex items-center justify-center gap-[32px]">
+      <div className="avatar h-[32px] w-[32px] fixed bottom-[32px] left-[32px] sm:left-auto sm:bottom-auto sm:relative ">
         <div className="rounded-full">
           <img src="/favicon.ico" />
         </div>
       </div>
-      <ul className="flex flex-row justify-center rounded-full w-[calc(100%-86px)] sm:w-fit join  ">
+      <ul className="flex flex-row justify-center  rounded-full w-[calc(100%-32px-32px-32px)] sm:w-fit join  ">
         <li
           onClick={() => route.push("/")}
-          className={` join-item btn sm:min-h-12 h-8 min-h-8  cursor-pointer text-xs flex-1 ${
+          className={` join-item btn h-[32px] min-h-[32px]  cursor-pointer text-xs flex-1 ${
             path === "/" && " btn-accent pointer-events-none"
           }`}
         >
@@ -30,7 +30,7 @@ export default function () {
         </li>
         <li
           onClick={() => route.push("/projects")}
-          className={`join-item btn sm:min-h-12 h-8 min-h-8  cursor-pointer text-xs flex-1 ${
+          className={`join-item btn h-[32px] min-h-[32px]  cursor-pointer text-xs flex-1 ${
             path === "/projects" && "btn-accent  pointer-events-none"
           }`}
         >
@@ -41,7 +41,7 @@ export default function () {
         </li>
         <li
           onClick={() => route.push("/contacts")}
-          className={`join-item btn sm:min-h-12 h-8 min-h-8    cursor-pointer text-xs flex-1 ${
+          className={`join-item btn h-[32px] min-h-[32px]    cursor-pointer text-xs flex-1 ${
             path === "/contacts" && "btn-accent  pointer-events-none"
           }`}
         >
