@@ -1,73 +1,56 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { supabaseAdmin } from "@/util/supabase";
 import { useChatStore } from "@/store";
-type Message = {
-  sender: null | string;
-  content: null | string;
-};
+import {
+  DocumentData,
+  collection,
+  doc,
+  limit,
+  limitToLast,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { firestore } from "@/util/firebase";
 
 export default function Messages() {
   const chat = useChatStore();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<DocumentData>([]);
+
   useEffect(() => {
-    const subscription = supabaseAdmin
-      .channel("messages")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "messages",
-        },
-        (payload) =>
-          setMessages((prevMessages: any) => [
-            payload.new,
-            ...prevMessages.slice(0, 4),
-          ])
-      )
-      .subscribe();
-
-    const fetchMessages = async () => {
-      const { data, error } = await supabaseAdmin
-        .from("messages")
-        .select()
-        .eq("chatSession_Id", chat.chatSession_Id as string)
-        .order("created_at", { ascending: false })
-        .limit(5);
-
-      if (error) {
-        console.error("Error fetching messages:", error.message);
-        return;
+    onSnapshot(
+      query(
+        collection(
+          firestore,
+          "chatIds",
+          String(chat.chatSession_Id),
+          "messages"
+        ),
+        orderBy("created_at", "asc"),
+        limitToLast(5)
+      ),
+      (message) => {
+        setMessages(message.docs.map((m) => m.data()));
       }
-
-      setMessages(data);
-    };
-
-    fetchMessages();
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    );
+    console.log(messages);
   }, []);
+
   return (
-    <div
-      className="flex flex-col-reverse w-full"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="flex flex-col w-full" onClick={(e) => e.stopPropagation()}>
       {messages.map((message: any) => {
         return (
           <React.Fragment key={message.id}>
             {!message.isAdmin ? (
               <div className="chat chat-end ml-auto mr-0">
                 <div className="chat-bubble chat-bubble-accent">
-                  {message.content}
+                  {message.message}
                 </div>
               </div>
             ) : (
               <div className="chat chat-start ml-0 mr-auto">
                 <div className="chat-bubble chat-base-100">
-                  {message.content}
+                  {message.message}
                 </div>
               </div>
             )}

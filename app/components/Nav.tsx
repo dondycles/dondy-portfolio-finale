@@ -5,7 +5,7 @@ import {
   BiSolidCollection,
   BiSolidPhoneCall,
 } from "react-icons/bi";
-import Message from "./Message";
+import Message from "./MessageComponent";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 export default function () {
