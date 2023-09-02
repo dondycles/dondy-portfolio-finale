@@ -13,13 +13,13 @@ import {
 
 export default async function Home() {
   return (
-    <article className=" w-full h-full flex flex-col items-center gap-[32px]">
+    <article className=" w-full h-full flex flex-col items-center gap-[32px] text-xs sm:text-sm">
       <section className="flex items-center gap-[32px]">
         <Avatar />
         <section>
-          <h1 className=" font-bold ">John Rod Dondoyano</h1>
-          <p className="text-xs">Rizal Technological University</p>
-          <p className="text-xs">BS Computer Engineering</p>
+          <h1 className=" font-bold text-base">John Rod Dondoyano</h1>
+          <p>Rizal Technological University</p>
+          <p>BS Computer Engineering</p>
         </section>
       </section>
       <section className="flex flex-col gap-8 w-full overflow-y-auto scrollbar-thin scrollbar-thumb-accent/25">

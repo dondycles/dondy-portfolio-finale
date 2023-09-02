@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${myFont.className} text-sm`}>
+    <html lang="en" className={`${myFont.className}`}>
       <Hydrator children={children} />
     </html>
   );
