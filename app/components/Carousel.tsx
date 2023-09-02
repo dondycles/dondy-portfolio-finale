@@ -16,7 +16,7 @@ export default function Carousel({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ type: "spring", bounce: 0.25, duration: 0.3 }}
-      className="fixed z-10 top-0 left-0 right-0 h-screen w-screen flex items-center justify-center bg-base-100/25 backdrop-blur-sm"
+      className="fixed z-[10] top-0 left-0 right-0 h-screen w-screen flex items-center justify-center bg-base-100/25 backdrop-blur-sm"
     >
       <div className="w-full ">
         <div className="flex items-center justify-center gap-[32px] px-[32px] rounded-box mx-auto">

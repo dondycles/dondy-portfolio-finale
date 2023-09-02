@@ -18,6 +18,7 @@ export default function Avatar() {
             alt="John Rod"
             src="/me.jpg"
             quality={100}
+            priority
           />
         </div>
       </div>

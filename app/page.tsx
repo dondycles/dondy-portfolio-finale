@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { useState } from "react";
 import Avatar from "./components/Avatar";
 import {
   SiSvelte,
@@ -8,8 +6,12 @@ import {
   SiCss3,
   SiJavascript,
   SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiFirebase,
 } from "react-icons/si";
-export default function Home() {
+
+export default async function Home() {
   return (
     <article className=" w-full h-full flex flex-col items-center gap-[32px]">
       <section className="flex items-center gap-[32px]">
@@ -57,7 +59,7 @@ export default function Home() {
                   {" "}
                   <progress
                     className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="75"
+                    value="90"
                     max="100"
                   ></progress>
                 </td>
@@ -70,7 +72,20 @@ export default function Home() {
                   {" "}
                   <progress
                     className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="75"
+                    value="90"
+                    max="100"
+                  ></progress>
+                </td>
+              </tr>
+              <tr>
+                <td className="flex items-center gap-1">
+                  <SiTailwindcss /> TailwindCSS
+                </td>
+                <td>
+                  {" "}
+                  <progress
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                    value="80"
                     max="100"
                   ></progress>
                 </td>
@@ -83,7 +98,20 @@ export default function Home() {
                   {" "}
                   <progress
                     className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="60"
+                    value="70"
+                    max="100"
+                  ></progress>
+                </td>
+              </tr>
+              <tr>
+                <td className="flex items-center gap-1">
+                  <SiTypescript /> TS
+                </td>
+                <td>
+                  {" "}
+                  <progress
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                    value="70"
                     max="100"
                   ></progress>
                 </td>
@@ -117,6 +145,19 @@ export default function Home() {
               <tr>
                 <td className="flex items-center gap-1">
                   <SiSvelte /> SvelteKit
+                </td>
+                <td>
+                  {" "}
+                  <progress
+                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                    value="50"
+                    max="100"
+                  ></progress>
+                </td>
+              </tr>
+              <tr>
+                <td className="flex items-center gap-1">
+                  <SiFirebase /> Firebase
                 </td>
                 <td>
                   {" "}

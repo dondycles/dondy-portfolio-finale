@@ -24,7 +24,7 @@ export default function Hydrator({ children }: { children: React.ReactNode }) {
             className="p-[32px] min-h-[100dvh] text-base-content"
           >
             <Nav />
-            <div className="w-full h-screen max-h-[calc(100dvh-32px-32px-32px-32px)] sm:max-h-[calc(100dvh-32px-32px-32px-32px)] bg-base-300 rounded-box p-[32px] sm:mt-[64px]">
+            <div className="w-full h-screen max-h-[calc(100dvh-32px-32px-32px-32px)] sm:max-h-[calc(100dvh-32px-32px-32px-32px)] bg-base-300 rounded-box p-[32px] sm:mt-[64px] overflow-y-auto">
               {children}
             </div>
           </motion.main>

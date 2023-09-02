@@ -5,13 +5,19 @@ import {
   BiSolidCollection,
   BiSolidPhoneCall,
 } from "react-icons/bi";
-
+import Message from "./Message";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 export default function () {
   const path = usePathname();
   const route = useRouter();
+  const [showChat, setShowChat] = useState(false);
   return (
-    <nav className=" fixed top-auto bottom-[32px] left-[32px] right-[32px] sm:top-[32px] sm:bottom-auto sm:left-[32px] sm:right-[32px] flex items-center justify-center gap-[32px]">
-      <div className="avatar h-[32px] w-[32px] fixed bottom-[32px] left-[32px] sm:left-auto sm:bottom-auto sm:relative ">
+    <nav className=" fixed top-auto bottom-[32px] left-[32px] right-[32px] sm:top-[32px] sm:bottom-auto sm:left-[32px] sm:right-[32px] flex items-center justify-center gap-[32px] z-20">
+      <div
+        onClick={() => setShowChat(true)}
+        className="avatar h-[32px] w-[32px] fixed bottom-[32px] left-[32px] sm:left-auto sm:bottom-auto sm:relative cursor-pointer"
+      >
         <div className="rounded-full">
           <img src="/favicon.ico" />
         </div>
@@ -52,6 +58,9 @@ export default function () {
         </li>
       </ul>
       <ThemeButton />
+      <AnimatePresence>
+        {showChat && <Message closeChat={() => setShowChat(false)} />}
+      </AnimatePresence>
     </nav>
   );
 }
