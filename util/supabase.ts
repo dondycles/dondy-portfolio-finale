@@ -4,6 +4,6 @@ const supabseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 
 export const supabaseAdmin = createClient(
-  supabseUrl as string,
+  "https://sbpgmjqfpifglrydzkpq.supabase.co",
   supabaseKey as string
 );
