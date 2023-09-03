@@ -41,136 +41,133 @@ export default async function Home() {
             online lessons.
           </span>
         </p>
-        <section className=" flex gap-[32px] w-full">
-          <span className="text-accent">$</span>
-          <table className="table table-zebra table-pin-rows table-sm w-full max-w-[400px] mx-auto">
-            <thead>
-              <tr>
-                <th>Skill</th>
-                <th>Level</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiHtml5 /> HTML
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="90"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiCss3 /> CSS
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="90"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiTailwindcss /> TailwindCSS
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="80"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiJavascript /> JS
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="70"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiTypescript /> TS
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="70"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiReact /> React
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="60"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiNextdotjs /> NextJS
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="60"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiSvelte /> SvelteKit
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="50"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-              <tr>
-                <td className="flex items-center gap-1">
-                  <SiFirebase /> Firebase
-                </td>
-                <td>
-                  {" "}
-                  <progress
-                    className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
-                    value="50"
-                    max="100"
-                  ></progress>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+        <table className="table table-zebra table-pin-rows table-sm w-full max-w-[400px] mx-auto">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiHtml5 /> HTML
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="90"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiCss3 /> CSS
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="90"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiTailwindcss /> TailwindCSS
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="80"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiJavascript /> JS
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="70"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiTypescript /> TS
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="70"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiReact /> React
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="60"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiNextdotjs /> NextJS
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="60"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiSvelte /> SvelteKit
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="50"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+            <tr>
+              <td className="flex items-center gap-1">
+                <SiFirebase /> Firebase
+              </td>
+              <td>
+                {" "}
+                <progress
+                  className="progress progress-accent w-full min-w-[100px] max-w-[150px]"
+                  value="50"
+                  max="100"
+                ></progress>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </article>
   );

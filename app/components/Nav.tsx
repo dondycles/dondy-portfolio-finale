@@ -1,3 +1,4 @@
+"use client";
 import { usePathname, useRouter } from "next/navigation";
 import ThemeButton from "./ThemeButton";
 import {
@@ -6,17 +7,30 @@ import {
   BiSolidPhoneCall,
 } from "react-icons/bi";
 import Messages from "./Messages/Messages";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { DocumentData, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { firestore } from "@/util/firebase";
 export default function () {
   const path = usePathname();
   const route = useRouter();
   const [showChat, setShowChat] = useState(false);
+  const [adminData, setAdminData] = useState<DocumentData>();
+  const getAdminData = () => {
+    onSnapshot(doc(firestore, "admin", "johnroddondoyano"), (admin) => {
+      setAdminData(admin.data());
+    });
+  };
+  useEffect(() => {
+    getAdminData();
+  }, []);
   return (
     <nav className=" fixed top-auto bottom-[32px] left-[32px] right-[32px] sm:top-[32px] sm:bottom-auto sm:left-[32px] sm:right-[32px] flex items-center justify-center gap-[32px] z-20">
       <div
         onClick={() => setShowChat(true)}
-        className="avatar online h-[32px] w-[32px] fixed bottom-[32px] left-[32px] sm:left-auto sm:bottom-auto sm:relative cursor-pointer"
+        className={`avatar online h-[32px] w-[32px] fixed bottom-[32px] left-[32px] sm:left-auto sm:bottom-auto sm:relative cursor-pointer ${
+          adminData && adminData.isActive ? " online " : " offline"
+        }`}
       >
         <div className="rounded-full">
           <img src="/favicon.ico" />

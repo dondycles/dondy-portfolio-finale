@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 export default function MessageBubble({
   message,
   openModal,
+  isAdmin,
 }: {
   message: DocumentData;
+  isAdmin: string;
   openModal: (id: string) => void;
 }) {
   return (
@@ -14,11 +16,15 @@ export default function MessageBubble({
       layout
       transition={{ type: "spring" }}
       onClick={() => {
-        if (message.isAdmin) return;
+        if (message.isAdmin && isAdmin != "true") return;
         openModal(message.id);
       }}
       className={`${
-        message.isAdmin
+        isAdmin === "true"
+          ? message.isAdmin
+            ? "chat-end ml-auto mr-0 cursor-pointer"
+            : "chat-start ml-0 mr-auto cursor-pointer"
+          : message.isAdmin
           ? "chat-end ml-0 mr-auto"
           : "chat-start ml-auto mr-0 cursor-pointer"
       } chat   `}

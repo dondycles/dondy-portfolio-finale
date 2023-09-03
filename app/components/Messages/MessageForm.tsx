@@ -9,8 +9,11 @@ import {
   setDoc,
   getDocs,
   DocumentData,
+  onSnapshot,
 } from "firebase/firestore";
-import { FormEvent, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
 
 export default function MessageForm({
   closeChat,
@@ -22,9 +25,13 @@ export default function MessageForm({
   selectChatSession_Id: (id: string) => void;
 }) {
   const chat = useChatStore();
+  const searchParams = useSearchParams();
   const [message, setMessage] = useState<String>("");
   const [senderName, setSenderName] = useState<String | null>(null);
   const [selectedChatSession_Id, setSelectedChatSession_Id] = useState("");
+  const [adminData, setAdminData] = useState<DocumentData>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [chatIds, setChatIds] = useState<DocumentData>([]);
   const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //  TODO Create Toastify!
@@ -72,13 +79,13 @@ export default function MessageForm({
     setSenderName(null);
     console.log("Sent From Client Side");
   };
-
   const sendMessageToTheSelectedId = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //  TODO Create Toastify!
 
     if (isAdmin != "true")
       return console.log("Only Admins Can Use This Function!");
+    if (selectedChatSession_Id.trim() === "") return console.log("Empty ID!");
     if (message === "") return console.log("Your Message Is Empty!");
     try {
       if (senderName != null && chat.senderName === null)
@@ -122,13 +129,25 @@ export default function MessageForm({
     setSenderName(null);
     console.log("Sent From Admin Side");
   };
-
-  const [chatIds, setChatIds] = useState<DocumentData>([]);
-
   const fetchChatIds = async () => {
     const { docs } = await getDocs(collection(firestore, "chatIds"));
-    setChatIds(docs.map((id) => id.id));
+    setChatIds(docs.map((id) => id.data()));
   };
+  const setActive = async () => {
+    await updateDoc(doc(firestore, "admin", "johnroddondoyano"), {
+      isActive: !adminData.isActive,
+    });
+  };
+
+  useEffect(() => {
+    if (searchParams.get("admin") != "true") return;
+    onSnapshot(
+      doc(firestore, "admin", "johnroddondoyano"),
+      (admin: DocumentData) => {
+        setAdminData(admin.data());
+      }
+    );
+  }, []);
 
   return (
     <div
@@ -144,41 +163,6 @@ export default function MessageForm({
           }}
           className="form-control w-full"
         >
-          {isAdmin === "true" ? (
-            <div
-              onClick={() => fetchChatIds()}
-              className="dropdown dropdown-top "
-            >
-              <span tabIndex={0} className="btn text-xs w-full">
-                Selected ID: {selectedChatSession_Id}
-              </span>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] menu p-0 shadow  w-full flex justify-end gap-6 mb-6 max-h-[500px] h-screen overflow-y-auto"
-              >
-                {chatIds &&
-                  chatIds.map((id: string) => {
-                    return (
-                      <li
-                        onClick={() => {
-                          selectChatSession_Id(id);
-                          setSelectedChatSession_Id(id);
-                        }}
-                        className=" btn btn-outline text-xs"
-                        key={id}
-                      >
-                        {id}
-                      </li>
-                    );
-                  })}
-              </ul>
-            </div>
-          ) : (
-            <p className="label-text text-xs cursor-pointer">
-              ID: {chat.chatSession_Id}
-            </p>
-          )}
-
           {isAdmin != "true" && chat.senderName === null && (
             <input
               onChange={(e) => {
@@ -187,11 +171,11 @@ export default function MessageForm({
               value={senderName === null ? "" : String(senderName)}
               placeholder="Your name here... (Optional)"
               type="text"
-              className="input input-bordered w-full text-xs mt-6"
+              className="input input-bordered w-full text-xs my-6"
             />
           )}
 
-          <div className="flex flex-rol items-center gap-6 justify-center mt-6">
+          <div className="flex flex-rol items-center gap-6 justify-center ">
             <input
               onChange={(e) => {
                 setMessage(e.target.value);
@@ -202,15 +186,86 @@ export default function MessageForm({
               className="input input-bordered w-full text-xs "
             />
             <button type="submit" className="btn btn-accent text-xs">
-              Send
+              Send!
             </button>
           </div>
         </form>
       </div>
-
-      <button onClick={() => closeChat()} className="btn btn-accent  text-xs">
-        Cancel
-      </button>
+      <div className="flex flex-row justify-end gap-6 relative">
+        <button onClick={() => {}} className="btn btn-error  text-xs">
+          Reset
+        </button>
+        {isAdmin === "true" && (
+          <>
+            <button
+              onClick={() => {
+                fetchChatIds();
+                setShowDropdown((prev) => !prev);
+              }}
+              className="btn text-xs flex-1 relative break-before-all"
+            >
+              {chatIds.map((chat: DocumentData) => {
+                if (chat.id === selectedChatSession_Id)
+                  return (
+                    <span>
+                      {chat.senderName ? chat.id.slice(0, 5) : chat.senderName}
+                    </span>
+                  );
+              })}
+            </button>
+            <AnimatePresence>
+              {showDropdown && (
+                <motion.ul
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute bottom-20 right-0 shadow w-full flex flex-col gap-6 items-end justify-end max-h-[60dvh] h-screen overflow-y-auto p-6 rounded-lg bg-base-100/[95%]"
+                >
+                  {chatIds &&
+                    chatIds.map((chat: DocumentData) => {
+                      return (
+                        <motion.li
+                          onClick={() => {
+                            selectChatSession_Id(chat.id);
+                            setSelectedChatSession_Id(chat.id);
+                            setShowDropdown(false);
+                          }}
+                          className={`btn w-full text-xs ${
+                            chat.id === selectedChatSession_Id
+                              ? "btn-warning"
+                              : "btn-outline"
+                          }`}
+                          key={chat.id}
+                        >
+                          {chat.id.slice(0, 5)}
+                        </motion.li>
+                      );
+                    })}
+                </motion.ul>
+              )}
+            </AnimatePresence>
+          </>
+        )}
+        <button onClick={() => closeChat()} className="btn btn-outline text-xs">
+          Close
+        </button>
+      </div>
+      {isAdmin === "true" ? (
+        <button
+          onClick={() => {
+            setActive();
+          }}
+          className={`btn ${
+            adminData.isActive ? "btn-accent " : "btn-neutral"
+          }`}
+        >
+          {adminData.isActive ? "Online" : "Offline"}
+        </button>
+      ) : (
+        <p className="label-text text-xs text-center">
+          ID: {chat.chatSession_Id}
+        </p>
+      )}
     </div>
   );
 }
