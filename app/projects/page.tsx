@@ -50,10 +50,10 @@ export default function Projects() {
   ];
   return (
     <div className="  h-full overflow-y-auto  scrollbar-thin scrollbar-thumb-accent/25">
-      <div className="flex flex-wrap flex-row items-start justify-center lg:justify-start gap-[32px]">
+      <div className="flex flex-wrap flex-row items-start justify-center lg:justify-start h-full gap-[32px]">
         {projects.map((project) => {
           return (
-            <article className="card w-full lg:max-w-[400px] bg-base-100 shadow">
+            <article className="card w-full lg:max-w-[400px] bg-base-100 shadow self-stretch">
               <figure>
                 <img
                   src={project.img}
