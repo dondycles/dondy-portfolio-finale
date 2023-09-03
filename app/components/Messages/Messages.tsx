@@ -13,12 +13,17 @@ import { firestore } from "@/util/firebase";
 import MessageBubble from "./MessageBubble";
 import MessageForm from "./MessageForm";
 import ModifyMessage from "../Modals/ModifyMessage";
+import { useSearchParams } from "next/navigation";
+
 export default function Messages({ closeChat }: { closeChat: () => void }) {
   const chat = useChatStore();
+  const searchParams = useSearchParams();
   const [messages, setMessages] = useState<DocumentData>([]);
   const [messageIdToBeModified, setMessageIdToBeModified] = useState("");
   const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
+
+  const getMessages = async () => {
+    if (searchParams.get("admin") === "true") return;
     onSnapshot(
       query(
         collection(
@@ -28,12 +33,30 @@ export default function Messages({ closeChat }: { closeChat: () => void }) {
           "messages"
         ),
         orderBy("created_at", "asc"),
-        limitToLast(5)
+        limitToLast(10)
       ),
       (message) => {
         setMessages(message.docs.map((m) => m.data()));
       }
     );
+  };
+
+  const getMessagesBySelectedId = async (chatSession_Id: string) => {
+    if (searchParams.get("admin") === "false") return;
+    onSnapshot(
+      query(
+        collection(firestore, "chatIds", chatSession_Id, "messages"),
+        orderBy("created_at", "asc"),
+        limitToLast(10)
+      ),
+      (message) => {
+        setMessages(message.docs.map((m) => m.data()));
+      }
+    );
+  };
+
+  useEffect(() => {
+    getMessages();
   }, []);
 
   return (
@@ -47,6 +70,7 @@ export default function Messages({ closeChat }: { closeChat: () => void }) {
       <AnimatePresence>
         {showModal && (
           <ModifyMessage
+            key={String(showModal)}
             closeModal={() => {
               setShowModal(false);
               setMessageIdToBeModified("");
@@ -65,7 +89,7 @@ export default function Messages({ closeChat }: { closeChat: () => void }) {
             {messages.map((message: DocumentData, i: number) => {
               return (
                 <MessageBubble
-                  key={message.id}
+                  key={i}
                   openModal={(id) => {
                     setMessageIdToBeModified(id);
                     setShowModal(true);
@@ -76,7 +100,13 @@ export default function Messages({ closeChat }: { closeChat: () => void }) {
             })}
           </AnimatePresence>
         </div>
-        <MessageForm closeChat={() => closeChat()} />
+        <MessageForm
+          selectChatSession_Id={(chatSession_Id) => {
+            getMessagesBySelectedId(chatSession_Id);
+          }}
+          isAdmin={searchParams.get("admin") as string}
+          closeChat={() => closeChat()}
+        />
       </div>
     </motion.div>
   );

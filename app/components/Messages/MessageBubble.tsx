@@ -13,15 +13,26 @@ export default function MessageBubble({
     <motion.div
       layout
       transition={{ type: "spring" }}
-      onClick={() => openModal(message.id)}
+      onClick={() => {
+        if (message.isAdmin) return;
+        openModal(message.id);
+      }}
       className={`${
-        message.isAdmin ? "chat-end" : "chat-start"
-      } chat  ml-auto mr-0 cursor-pointer`}
+        message.isAdmin
+          ? "chat-end ml-0 mr-auto"
+          : "chat-start ml-auto mr-0 cursor-pointer"
+      } chat   `}
     >
       <div
         className={`${
-          message.isAdmin ? "chat-base-100" : "chat-bubble-accent"
-        } chat-bubble break-all `}
+          message.isAdmin
+            ? message.isEdited
+              ? "chat-bubble-warning"
+              : "chat-bubble-primary"
+            : message.isEdited
+            ? "chat-bubble-warning"
+            : "chat-bubble-accent"
+        } chat-bubble max-w-[200px] w-full min-h-0 whitespace-normal break-words`}
       >
         {message.message}
       </div>

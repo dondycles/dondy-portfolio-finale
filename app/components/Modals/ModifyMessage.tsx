@@ -58,7 +58,7 @@ export default function ModifyMessage({
             onChange={(e) => setEditedMessage(e.target.value)}
             value={editedMessage}
             className="textarea textarea-accent w-full"
-          ></motion.textarea>
+          />
         )}
         <motion.div layout className=" mt-6 w-full flex flex-row gap-6">
           <AnimatePresence>
@@ -86,7 +86,6 @@ export default function ModifyMessage({
                       onClick={() => {
                         closeModal();
                         setTimeout(() => {
-                          updateMessage(messageId);
                           setConfirmDelete(false);
                           setConfirmEdit(false);
                           setIsModifying(false);
@@ -105,6 +104,7 @@ export default function ModifyMessage({
                       onClick={() => {
                         closeModal();
                         setTimeout(() => {
+                          updateMessage(messageId);
                           setConfirmEdit((prev) => !prev);
                           setConfirmDelete(false);
                           setIsModifying(false);
