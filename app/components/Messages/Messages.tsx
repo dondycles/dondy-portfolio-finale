@@ -21,6 +21,7 @@ export default function Messages({ closeChat }: { closeChat: () => void }) {
   const messagesContainer = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<DocumentData>([]);
   const [messageIdToBeModified, setMessageIdToBeModified] = useState("");
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   const getMessages = async () => {
@@ -78,6 +79,7 @@ export default function Messages({ closeChat }: { closeChat: () => void }) {
       <AnimatePresence>
         {showModal && (
           <ModifyMessage
+            selectedChatId={selectedId || null}
             key={String(showModal)}
             closeModal={() => {
               setShowModal(false);
@@ -114,6 +116,7 @@ export default function Messages({ closeChat }: { closeChat: () => void }) {
         <MessageForm
           selectChatSession_Id={(chatSession_Id) => {
             getMessagesBySelectedId(chatSession_Id);
+            setSelectedId(chatSession_Id);
           }}
           isAdmin={searchParams.get("admin") as string}
           closeChat={() => closeChat()}

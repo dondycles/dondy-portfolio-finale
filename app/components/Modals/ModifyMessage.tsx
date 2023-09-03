@@ -1,36 +1,79 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { firestore } from "@/util/firebase";
 import { useChatStore } from "@/store";
-
+import { useSearchParams } from "next/navigation";
 export default function ModifyMessage({
   messageId,
   closeModal,
+  selectedChatId,
 }: {
   messageId: string;
   closeModal: () => void;
+  selectedChatId: string | null;
 }) {
   const [isModifying, setIsModifying] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmEdit, setConfirmEdit] = useState(false);
   const [editedMessage, setEditedMessage] = useState("");
+  const searchParams = useSearchParams();
   const chat = useChatStore();
 
   const deleteMessage = async (id: string) => {
-    await deleteDoc(
-      doc(firestore, "chatIds", String(chat.chatSession_Id), "messages", id)
-    );
+    if (searchParams.get("admin") === "true") {
+      await deleteDoc(
+        doc(firestore, "chatIds", String(selectedChatId), "messages", id)
+      );
+    } else
+      await deleteDoc(
+        doc(firestore, "chatIds", String(chat.chatSession_Id), "messages", id)
+      );
   };
   const updateMessage = async (id: string) => {
-    await updateDoc(
-      doc(firestore, "chatIds", String(chat.chatSession_Id), "messages", id),
-      {
-        message: editedMessage,
-        isEdited: true,
+    if (searchParams.get("admin") === "true") {
+      await updateDoc(
+        doc(firestore, "chatIds", String(selectedChatId), "messages", id),
+        {
+          message: editedMessage,
+          isEdited: true,
+        }
+      );
+    } else
+      await updateDoc(
+        doc(firestore, "chatIds", String(chat.chatSession_Id), "messages", id),
+        {
+          message: editedMessage,
+          isEdited: true,
+        }
+      );
+
+    setEditedMessage("");
+  };
+
+  const deleteAllMessages = async () => {
+    onSnapshot(
+      collection(firestore, "chatIds", String(chat.chatSession_Id), "messages"),
+      (chats) => {
+        chats.docs.map((c) => {
+          deleteDoc(
+            doc(
+              firestore,
+              "chatIds",
+              String(chat.chatSession_Id),
+              "messages",
+              c.id
+            )
+          );
+        });
       }
     );
-    setEditedMessage("");
   };
 
   return (

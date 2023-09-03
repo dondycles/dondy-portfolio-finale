@@ -10,6 +10,8 @@ import {
   getDocs,
   DocumentData,
   onSnapshot,
+  deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
@@ -46,11 +48,14 @@ export default function MessageForm({
         chat.senderName === null
       )
         chat.setSenderName(senderName as string);
-
-      await setDoc(doc(firestore, "chatIds", String(chat.chatSession_Id)), {
-        senderName: chat.senderName === null ? senderName : chat.senderName,
-        id: chat.chatSession_Id,
-      });
+      if (!chat.initiated) {
+        chat.setInitiated();
+        await setDoc(doc(firestore, "chatIds", String(chat.chatSession_Id)), {
+          senderName: chat.senderName === null ? senderName : chat.senderName,
+          id: chat.chatSession_Id,
+          isInitiated: true,
+        });
+      }
       const { id } = await addDoc(
         collection(
           firestore,
@@ -88,13 +93,6 @@ export default function MessageForm({
     if (selectedChatSession_Id.trim() === "") return console.log("Empty ID!");
     if (message === "") return console.log("Your Message Is Empty!");
     try {
-      if (senderName != null && chat.senderName === null)
-        chat.setSenderName(senderName as string);
-
-      await setDoc(doc(firestore, "chatIds", String(selectedChatSession_Id)), {
-        senderName: chat.senderName === null ? senderName : chat.senderName,
-        id: selectedChatSession_Id,
-      });
       const { id } = await addDoc(
         collection(
           firestore,
@@ -138,6 +136,24 @@ export default function MessageForm({
       isActive: !adminData.isActive,
     });
   };
+  // const deleteAllMessages = async () => {
+  //   onSnapshot(
+  //     collection(firestore, "chatIds", String(chat.chatSession_Id), "messages"),
+  //     (chats) => {
+  //       chats.docs.map((c) => {
+  //         deleteDoc(
+  //           doc(
+  //             firestore,
+  //             "chatIds",
+  //             String(chat.chatSession_Id),
+  //             "messages",
+  //             c.id
+  //           )
+  //         );
+  //       });
+  //     }
+  //   );
+  // };
 
   useEffect(() => {
     if (searchParams.get("admin") != "true") return;
@@ -192,9 +208,14 @@ export default function MessageForm({
         </form>
       </div>
       <div className="flex flex-row justify-end gap-6 relative">
-        <button onClick={() => {}} className="btn btn-error  text-xs">
+        {/* <button
+          onClick={() => {
+            deleteAllMessages();
+          }}
+          className="btn btn-error  text-xs"
+        >
           Reset
-        </button>
+        </button> */}
         {isAdmin === "true" && (
           <>
             <button
@@ -204,11 +225,13 @@ export default function MessageForm({
               }}
               className="btn text-xs flex-1 relative break-before-all"
             >
-              {chatIds.map((chat: DocumentData) => {
-                if (chat.id === selectedChatSession_Id)
+              {chatIds.map((c: DocumentData) => {
+                if (c.id === selectedChatSession_Id)
                   return (
-                    <span>
-                      {chat.senderName ? chat.id.slice(0, 5) : chat.senderName}
+                    <span key={c.id}>
+                      {c.senderName === undefined || chat.senderName === null
+                        ? c.id.slice(0, 5)
+                        : c.senderName}
                     </span>
                   );
               })}
