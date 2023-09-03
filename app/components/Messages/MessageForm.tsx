@@ -33,7 +33,11 @@ export default function MessageForm({
       return console.log("Only Non-Admins Can Use This Function!");
     if (message === "") return console.log("Your Message Is Empty!");
     try {
-      if (senderName != null && chat.senderName === null)
+      if (
+        senderName != null &&
+        senderName.trim() != "" &&
+        chat.senderName === null
+      )
         chat.setSenderName(senderName as string);
 
       await setDoc(doc(firestore, "chatIds", String(chat.chatSession_Id)), {
